@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
-import { useRouter, Link } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { ChefHat, User, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,26 +34,26 @@ export default function Register() {
   return (
     <ImageBackground
       source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80' }}
-      className="flex-1"
+      style={{ flex: 1 }}
     >
-      <LinearGradient colors={['rgba(26,13,4,0.8)', 'rgba(26,13,4,0.6)', '#1a0d04']} className="flex-1">
-        <SafeAreaView className="flex-1">
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} className="flex-1">
-            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }} className="px-6 py-12" keyboardShouldPersistTaps="handled">
+      <LinearGradient colors={['rgba(26,13,4,0.8)', 'rgba(26,13,4,0.6)', '#1a0d04']} style={{ flex: 1 }}>
+        <SafeAreaView style={{ flex: 1 }}>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingHorizontal: 24, paddingVertical: 48 }} keyboardShouldPersistTaps="handled">
 
-              <View className="items-center mb-8">
-                <View className="w-14 h-14 rounded-2xl items-center justify-center mb-3" style={{ backgroundColor: 'rgba(224,123,48,0.2)', borderWidth: 1, borderColor: 'rgba(224,123,48,0.3)' }}>
+              <View style={{ alignItems: 'center', marginBottom: 32 }}>
+                <View style={{ width: 56, height: 56, borderRadius: 16, alignItems: 'center', justifyContent: 'center', marginBottom: 12, backgroundColor: 'rgba(224,123,48,0.2)', borderWidth: 1, borderColor: 'rgba(224,123,48,0.3)' }}>
                   <ChefHat size={28} color="#E07B30" />
                 </View>
-                <Text className="text-white text-2xl font-bold">Вкусни Рецепти</Text>
-                <Text className="text-white/40 text-sm mt-1">Създай акаунт и се присъедини</Text>
+                <Text style={{ color: 'white', fontSize: 24, fontWeight: 'bold' }}>Вкусни Рецепти</Text>
+                <Text style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14, marginTop: 4 }}>Създай акаунт и се присъедини</Text>
               </View>
 
-              <View className="gap-4">
+              <View style={{ gap: 16 }}>
                 {!!error && (
-                  <View className="flex-row items-center gap-2 rounded-2xl px-4 py-3" style={{ backgroundColor: 'rgba(239,68,68,0.1)', borderWidth: 1, borderColor: 'rgba(239,68,68,0.3)' }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: 'rgba(239,68,68,0.1)', borderWidth: 1, borderColor: 'rgba(239,68,68,0.3)', borderRadius: 16, paddingHorizontal: 16, paddingVertical: 12 }}>
                     <AlertCircle size={16} color="#f87171" />
-                    <Text className="text-red-400 text-sm flex-1">{error}</Text>
+                    <Text style={{ color: '#f87171', fontSize: 14, flex: 1 }}>{error}</Text>
                   </View>
                 )}
 
@@ -61,21 +61,23 @@ export default function Register() {
                   <User size={18} color="rgba(255,255,255,0.3)" />
                   <TextInput value={form.name} onChangeText={(v) => setForm((f) => ({ ...f, name: v }))}
                     placeholder="Твоето ime" placeholderTextColor="rgba(255,255,255,0.2)"
-                    autoCapitalize="words" className="flex-1 text-white text-sm ml-3" />
+                    autoCapitalize="words" style={{ flex: 1, color: 'white', fontSize: 14, marginLeft: 12 }} />
                 </Field>
 
                 <Field label="Имейл">
                   <Mail size={18} color="rgba(255,255,255,0.3)" />
                   <TextInput value={form.email} onChangeText={(v) => setForm((f) => ({ ...f, email: v }))}
                     placeholder="твоят@имейл.com" placeholderTextColor="rgba(255,255,255,0.2)"
-                    keyboardType="email-address" autoCapitalize="none" className="flex-1 text-white text-sm ml-3" />
+                    keyboardType="email-address" autoCapitalize="none"
+                    style={{ flex: 1, color: 'white', fontSize: 14, marginLeft: 12 }} />
                 </Field>
 
                 <Field label="Парола">
                   <Lock size={18} color="rgba(255,255,255,0.3)" />
                   <TextInput value={form.password} onChangeText={(v) => setForm((f) => ({ ...f, password: v }))}
                     placeholder="Мин. 6 символа" placeholderTextColor="rgba(255,255,255,0.2)"
-                    secureTextEntry={!showPassword} className="flex-1 text-white text-sm ml-3" />
+                    secureTextEntry={!showPassword}
+                    style={{ flex: 1, color: 'white', fontSize: 14, marginLeft: 12 }} />
                   <TouchableOpacity onPress={() => setShowPassword((s) => !s)}>
                     {showPassword ? <EyeOff size={16} color="rgba(255,255,255,0.3)" /> : <Eye size={16} color="rgba(255,255,255,0.3)" />}
                   </TouchableOpacity>
@@ -85,22 +87,22 @@ export default function Register() {
                   <Lock size={18} color="rgba(255,255,255,0.3)" />
                   <TextInput value={form.confirm} onChangeText={(v) => setForm((f) => ({ ...f, confirm: v }))}
                     placeholder="Повтори паролата" placeholderTextColor="rgba(255,255,255,0.2)"
-                    secureTextEntry={!showPassword} className="flex-1 text-white text-sm ml-3" />
+                    secureTextEntry={!showPassword}
+                    style={{ flex: 1, color: 'white', fontSize: 14, marginLeft: 12 }} />
                 </Field>
 
                 <TouchableOpacity onPress={handleSubmit} disabled={loading}
-                  className="w-full py-4 rounded-2xl items-center mt-2"
-                  style={{ backgroundColor: '#E07B30', opacity: loading ? 0.6 : 1 }}>
-                  <Text className="text-white font-semibold text-base">{loading ? 'Регистрация...' : 'Регистрирай се'}</Text>
+                  style={{ backgroundColor: '#E07B30', paddingVertical: 16, borderRadius: 16, alignItems: 'center', marginTop: 8, opacity: loading ? 0.6 : 1 }}>
+                  <Text style={{ color: 'white', fontWeight: '600', fontSize: 16 }}>{loading ? 'Регистрация...' : 'Регистрирай се'}</Text>
                 </TouchableOpacity>
               </View>
 
-              <Text className="text-white/40 text-sm text-center mt-8">
-                Вече имаш акаунт?{' '}
-                <Link href="/login">
-                  <Text className="text-accent font-semibold">Влез</Text>
-                </Link>
-              </Text>
+              <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 32 }}>
+                <Text style={{ color: 'rgba(255,255,255,0.4)', fontSize: 14 }}>Вече имаш акаунт? </Text>
+                <TouchableOpacity onPress={() => router.push('/login')}>
+                  <Text style={{ color: '#E07B30', fontWeight: '600', fontSize: 14 }}>Влез</Text>
+                </TouchableOpacity>
+              </View>
 
             </ScrollView>
           </KeyboardAvoidingView>
@@ -112,9 +114,9 @@ export default function Register() {
 
 function Field({ label, children }) {
   return (
-    <View className="gap-1.5">
-      <Text className="text-white/50 text-xs font-medium pl-1">{label}</Text>
-      <GlassView className="flex-row items-center px-4 py-3.5 rounded-2xl">
+    <View style={{ gap: 6 }}>
+      <Text style={{ color: 'rgba(255,255,255,0.5)', fontSize: 12, fontWeight: '500', paddingLeft: 4 }}>{label}</Text>
+      <GlassView style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingVertical: 14 }}>
         {children}
       </GlassView>
     </View>
