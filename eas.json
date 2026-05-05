@@ -22,7 +22,9 @@
         "buildConfiguration": "Release"
       },
       "env": {
-        "EAS_BUILD_NO_EXPO_GO_WARNING": "true"
+        "EAS_BUILD_NO_EXPO_GO_WARNING": "true",
+        "EXPO_PUBLIC_SUPABASE_URL": "https://utnwbrxgwiiejsqwlsjq.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_KEY": "sb_publishable_3Hi3MCHsyUoYtRVZUK0hVQ_A9zUYU0-"
       }
     }
   },
