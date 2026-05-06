@@ -27,11 +27,7 @@ export function AuthProvider({ children }) {
       options: { data: { name } },
     });
     if (error) throw new Error(error.message);
-    // Email confirmation required — session will be null
-    if (!data.session) {
-      throw new Error('Регистрацията е успешна! Провери имейла си и потвърди акаунта, след което влез.');
-    }
-    return data.user;
+    return { user: data.user, requiresConfirmation: !data.session };
   };
 
   const login = async (email, password) => {

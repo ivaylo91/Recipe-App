@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, User, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,15 +9,11 @@ import GlassView from '../components/GlassView';
 
 export default function Register() {
   const router = useRouter();
-  const { register, user } = useAuth();
+  const { register } = useAuth();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user) router.replace('/(tabs)/home');
-  }, [user]);
 
   const handleSubmit = async () => {
     setError('');
@@ -26,7 +22,16 @@ export default function Register() {
     if (form.password !== form.confirm) { setError('Паролите не съвпадат.'); return; }
     setLoading(true);
     try {
-      await register(form.name, form.email, form.password);
+      const { requiresConfirmation } = await register(form.name, form.email, form.password);
+      if (requiresConfirmation) {
+        Alert.alert(
+          'Провери имейла си',
+          'Изпратихме ти линк за потвърждение. Потвърди акаунта и след това влез.',
+          [{ text: 'OK', onPress: () => router.replace('/login') }]
+        );
+      } else {
+        router.replace('/(tabs)/home');
+      }
     } catch (err) {
       setError(err.message || 'Грешка при регистрация.');
       setLoading(false);
