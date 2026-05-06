@@ -23,10 +23,9 @@ export default function Register() {
     setLoading(true);
     try {
       await register(form.name, form.email, form.password);
-      router.replace('/(tabs)/home');
+      setTimeout(() => router.replace('/(tabs)/home'), 300);
     } catch (err) {
-      setError(err.message);
-    } finally {
+      setError(err.message || 'Грешка при регистрация.');
       setLoading(false);
     }
   };

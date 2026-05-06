@@ -21,10 +21,10 @@ export default function Login() {
     setLoading(true);
     try {
       await login(form.email, form.password);
-      router.replace('/(tabs)/home');
+      // Small delay so onAuthStateChange fires before navigation
+      setTimeout(() => router.replace('/(tabs)/home'), 300);
     } catch (err) {
-      setError(err.message);
-    } finally {
+      setError(err.message || 'Грешен имейл или парола.');
       setLoading(false);
     }
   };
