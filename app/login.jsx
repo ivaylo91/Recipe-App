@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -9,11 +9,16 @@ import GlassView from '../components/GlassView';
 
 export default function Login() {
   const router = useRouter();
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Navigate as soon as auth state confirms user is logged in
+  useEffect(() => {
+    if (user) router.replace('/(tabs)/home');
+  }, [user]);
 
   const handleSubmit = async () => {
     setError('');
@@ -21,12 +26,8 @@ export default function Login() {
     setLoading(true);
     try {
       await login(form.email, form.password);
-      // Small delay so onAuthStateChange fires before navigation
-      setTimeout(() => router.replace('/(tabs)/home'), 300);
     } catch (err) {
-      const msg = err.message || 'Грешен имейл или парола.';
-      setError(msg);
-      Alert.alert('Грешка при вход', msg);
+      setError(err.message || 'Грешен имейл или парола.');
       setLoading(false);
     }
   };

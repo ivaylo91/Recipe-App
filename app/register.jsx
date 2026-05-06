@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, User, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
@@ -9,11 +9,15 @@ import GlassView from '../components/GlassView';
 
 export default function Register() {
   const router = useRouter();
-  const { register } = useAuth();
+  const { register, user } = useAuth();
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user) router.replace('/(tabs)/home');
+  }, [user]);
 
   const handleSubmit = async () => {
     setError('');
@@ -23,7 +27,6 @@ export default function Register() {
     setLoading(true);
     try {
       await register(form.name, form.email, form.password);
-      setTimeout(() => router.replace('/(tabs)/home'), 300);
     } catch (err) {
       setError(err.message || 'Грешка при регистрация.');
       setLoading(false);
