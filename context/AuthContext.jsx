@@ -40,6 +40,9 @@ export function AuthProvider({ children }) {
       if (error.message.includes('Email not confirmed')) {
         throw new Error('Потвърди имейла си преди да влезеш.');
       }
+      if (error.message.includes('Invalid login credentials')) {
+        throw new Error('Грешен имейл или парола.');
+      }
       throw new Error(error.message);
     }
     return data.user;
