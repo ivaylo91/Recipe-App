@@ -24,7 +24,7 @@
       "env": {
         "EAS_BUILD_NO_EXPO_GO_WARNING": "true",
         "EXPO_PUBLIC_SUPABASE_URL": "https://utnwbrxgwiiejsqwlsjq.supabase.co",
-        "EXPO_PUBLIC_SUPABASE_KEY": "sb_publishable_3Hi3MCHsyUoYtRVZUK0hVQ_A9zUYU0-"
+        "EXPO_PUBLIC_SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzAwMDAwMDAwLCJleHAiOjIwMDAwMDAwMDB9.7DxGlzQNWOZxtvm9Qn4hI7eN7SZEBECZruh0XSY96jo"
       }
     }
   },
