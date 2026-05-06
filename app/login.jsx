@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -24,7 +24,9 @@ export default function Login() {
       // Small delay so onAuthStateChange fires before navigation
       setTimeout(() => router.replace('/(tabs)/home'), 300);
     } catch (err) {
-      setError(err.message || 'Грешен имейл или парола.');
+      const msg = err.message || 'Грешен имейл или парола.';
+      setError(msg);
+      Alert.alert('Грешка при вход', msg);
       setLoading(false);
     }
   };
