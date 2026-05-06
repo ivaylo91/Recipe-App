@@ -14,7 +14,7 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [activeCategory, setActiveCategory] = useState('Всички');
 
-  const allCategories = ['Всички', ...categories];
+  const allCategories = ['Всички', ...categories.map((c) => c.name ?? c)];
   const filtered = recipes.filter((r) => {
     const matchCat = activeCategory === 'Всички' || r.category === activeCategory;
     const matchSearch = r.title.toLowerCase().includes(search.toLowerCase());
