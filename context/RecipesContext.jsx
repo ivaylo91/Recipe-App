@@ -12,9 +12,10 @@ export function RecipesProvider({ children }) {
       .from('recipes')
       .select('*')
       .order('created_at', { ascending: false })
-      .then(({ data }) => {
-        if (data) setUserRecipes(data.map(toFrontend));
-      });
+      .then(({ data, error }) => {
+        if (data && !error) setUserRecipes(data.map(toFrontend));
+      })
+      .catch(() => {}); // never crash if DB unreachable
   }, []);
 
   const recipes = [...userRecipes, ...staticRecipes];
