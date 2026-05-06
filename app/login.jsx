@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ChefHat, Mail, Lock, Eye, EyeOff, AlertCircle } from 'lucide-react-native';
@@ -9,16 +9,11 @@ import GlassView from '../components/GlassView';
 
 export default function Login() {
   const router = useRouter();
-  const { login, user } = useAuth();
+  const { login } = useAuth();
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-
-  // Navigate as soon as auth state confirms user is logged in
-  useEffect(() => {
-    if (user) router.replace('/(tabs)/home');
-  }, [user]);
 
   const handleSubmit = async () => {
     setError('');
@@ -26,6 +21,7 @@ export default function Login() {
     setLoading(true);
     try {
       await login(form.email, form.password);
+      router.replace('/(tabs)/home');
     } catch (err) {
       setError(err.message || 'Грешен имейл или парола.');
       setLoading(false);
