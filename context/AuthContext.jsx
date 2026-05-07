@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
       options: { data: { name } },
     });
     if (error) throw new Error(error.message);
+    if (data.session) setUser(data.user);
     return { user: data.user, requiresConfirmation: !data.session };
   };
 
@@ -41,6 +42,7 @@ export function AuthProvider({ children }) {
       }
       throw new Error(error.message);
     }
+    setUser(data.user);
     return data.user;
   };
 
